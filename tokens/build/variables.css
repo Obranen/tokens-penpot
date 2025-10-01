@@ -1,0 +1,6 @@
+/* Сгенерировано fix-variables.js для Tailwind v4 @theme */
+
+@theme {
+  --color-primary-light: var(--lightPrimary);
+  --color-primary-dark: var(--darkPrimary);
+}

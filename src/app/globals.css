@@ -1,4 +1,7 @@
-@import "tailwindcss";
+@import '../../tokens/build/dark-tokens.css';
+@import '../../tokens/build/light-tokens.css';
+@import '../../tokens/build/variables.css';
+@import 'tailwindcss';
 
 :root {
   --background: #ffffff;
