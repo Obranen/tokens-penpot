@@ -9,7 +9,14 @@ export default {
 
   platforms: {
     variables: {
-      transforms: ["ts/size/px", "ts/opacity", "name/kebab", "ts/size/lineheight", "ts/typography/fontWeight", "ts/size/css/letterspacing"],
+      transforms: [
+        'ts/size/px',
+        'ts/opacity',
+        'name/kebab',
+        'ts/size/lineheight',
+        'ts/typography/fontWeight',
+        'ts/size/css/letterspacing',
+      ],
       buildPath: 'tokens/build/',
       files: [
         {
@@ -20,4 +27,4 @@ export default {
       ],
     },
   },
-};
+}

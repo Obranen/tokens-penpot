@@ -1,13 +1,13 @@
 /* Сгенерировано fix-variables.js для Tailwind v4 @theme */
 
 @theme {
-  --color-light-primary: rgb(183, 0, 0);
-  --breakpoint-xs-bp: 360px;
-  --breakpoint-md-bp: 768px;
-  --breakpoint-3xl-bp: 1920px;
-  --breakpoint-2xl-bp: 1536px;
-  --breakpoint-lg-bp: 1024px;
-  --breakpoint-xl-bp: 1280px;
-  --color-dark-primary: rgb(146, 0, 159);
-  --breakpoint-sm-bp: 480px;
+  --color-primary-light: rgb(183, 0, 0);
+  --bp: 360px;
+  --bp: 768px;
+  --bp: 1920px;
+  --bp: 1536px;
+  --bp: 1024px;
+  --bp: 1280px;
+  --color-primary-dark: rgb(146, 0, 159);
+  --bp: 480px;
 }

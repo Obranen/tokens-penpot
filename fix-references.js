@@ -6,22 +6,29 @@ const filePath = 'tokens/tokens.json' // путь к твоему файлу
 const raw = fs.readFileSync(filePath, 'utf-8')
 const tokens = JSON.parse(raw)
 
-// регулярка для поиска ссылок вида {red-500}
-const refRegex = /^\{([a-z0-9-]+)\}$/i
+// ИСПРАВЛЕННОЕ регулярное выражение для поиска ссылок
+// Добавлена точка (.) в разрешенные символы: [a-z0-9-.]
+const refRegex = /^\{([a-z0-9-.]+)\}$/i 
 
 // рекурсивная функция
 function fixReferences(obj) {
   for (const key in obj) {
     if (typeof obj[key] === 'object' && obj[key] !== null) {
       if (obj[key].$value && typeof obj[key].$value === 'string') {
-        const match = obj[key].$value.match(refRegex)
+        const value = obj[key].$value
+        const match = value.match(refRegex)
+        
         if (match) {
+          const tokenPath = match[1] // Путь без скобок, например, "color.red.500"
+          
           // если ссылка без "globals."
-          if (!match[1].startsWith('globals.')) {
-            obj[key].$value = `{globals.${match[1]}}`
+          if (!tokenPath.startsWith('globals.')) {
+            // Модифицируем $value, добавляя "globals."
+            obj[key].$value = `{globals.${tokenPath}}`
           }
         }
       }
+      // Рекурсивный вызов обеспечивает обработку любой глубины
       fixReferences(obj[key])
     }
   }

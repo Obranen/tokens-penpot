@@ -7,7 +7,8 @@
     "build": "node fix-references.js && npm run tokens && node fix-variables.js && next build",
     "start": "next start",
     "tokens": "node fix-references.js && style-dictionary build --config style-dictionary.config.mjs && node fix-variables.js",
-    "test": "style-dictionary build --config style-dictionary.config.mjs"
+    "style": "style-dictionary build --config style-dictionary.config.mjs",
+    "fix": "node fix-references.js"
   },
   "dependencies": {
     "@tokens-studio/sd-transforms": "^2.0.1",

@@ -3,13 +3,13 @@
  */
 
 :root {
-  --light-primary: rgb(183, 0, 0); /** color */
-  --xs-bp: 360px; /** breakpoint */
-  --md-bp: 768px; /** breakpoint */
-  --3xl-bp: 1920px; /** breakpoint */
-  --2xl-bp: 1536px; /** breakpoint */
-  --lg-bp: 1024px; /** breakpoint */
-  --xl-bp: 1280px; /** breakpoint */
-  --dark-primary: rgb(146, 0, 159); /** color */
-  --sm-bp: 480px; /** breakpoint */
+  --light-color-primary: rgb(183, 0, 0); /** light */
+  --xs-bp: 360px;
+  --md-bp: 768px;
+  --3xl-bp: 1920px;
+  --2xl-bp: 1536px;
+  --lg-bp: 1024px;
+  --xl-bp: 1280px;
+  --dark-color-primary: rgb(146, 0, 159); /** dark */
+  --sm-bp: 480px;
 }
