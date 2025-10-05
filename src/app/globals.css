@@ -1,6 +1,4 @@
-@import '../../tokens/build/dark-tokens.css';
-@import '../../tokens/build/light-tokens.css';
-@import '../../tokens/build/variables.css';
+@import '../../tokens/build/tailwind-variables.css';
 @import 'tailwindcss';
 
 :root {
@@ -8,11 +6,13 @@
   --foreground: #171717;
 }
 
-@theme inline {
+@theme {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --font-mono: var(--font-geist-mono);
+  --breakpoint-tablet: 768px;
 }
 
 @media (prefers-color-scheme: dark) {

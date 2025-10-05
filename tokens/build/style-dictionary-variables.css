@@ -1,0 +1,15 @@
+/**
+ * Do not edit directly, this file was auto-generated.
+ */
+
+:root {
+  --light-primary: rgb(183, 0, 0); /** color */
+  --xs-bp: 360px; /** breakpoint */
+  --md-bp: 768px; /** breakpoint */
+  --3xl-bp: 1920px; /** breakpoint */
+  --2xl-bp: 1536px; /** breakpoint */
+  --lg-bp: 1024px; /** breakpoint */
+  --xl-bp: 1280px; /** breakpoint */
+  --dark-primary: rgb(146, 0, 159); /** color */
+  --sm-bp: 480px; /** breakpoint */
+}

@@ -5,29 +5,19 @@ register(StyleDictionary)
 
 export default {
   source: ['tokens/tokens.json'],
+  preprocessors: ['tokens-studio'],
 
   platforms: {
-    dark: {
-      transformGroup: 'tokens-studio',
+    variables: {
+      transforms: ["ts/size/px", "ts/opacity", "name/kebab", "ts/size/lineheight", "ts/typography/fontWeight", "ts/size/css/letterspacing"],
       buildPath: 'tokens/build/',
       files: [
         {
-          destination: 'dark-tokens.css',
+          destination: 'style-dictionary-variables.css',
           format: 'css/variables',
-          filter: (token) => token.path[0] === 'dark',
-        },
-      ],
-    },
-    light: {
-      transformGroup: 'tokens-studio',
-      buildPath: 'tokens/build/',
-      files: [
-        {
-          destination: 'light-tokens.css',
-          format: 'css/variables',
-          filter: (token) => token.path[0] === 'light',
+          filter: (token) => token.path[0] !== 'globals',
         },
       ],
     },
   },
-}
+};
