@@ -20,7 +20,7 @@ export default {
       buildPath: 'tokens/build/',
       files: [
         {
-          destination: 'all-semantic-variables.css',
+          destination: 'semantic-variables.css',
           format: 'css/variables',
           filter: (token) => token.path[0] !== 'globals',
         },

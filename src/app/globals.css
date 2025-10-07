@@ -15,6 +15,10 @@
   --breakpoint-tablet: 768px;
 }
 
+@utility case-light {
+  text-transform: var(--case-light); 
+}
+
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;

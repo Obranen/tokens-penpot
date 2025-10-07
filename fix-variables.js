@@ -1,29 +1,23 @@
 import fs from 'fs'
 import path from 'path'
 
+// УДАЛЕНО: Жестко заданный список VARIANT_PREFIXES_TO_MOVE.
+// Теперь логика универсально перемещает первый сегмент переменной, если она содержит дефис.
+
 const THEME_FILES_TO_READ = {
   // Файлы для чтения (используются для получения имен переменных)
-  semantic: 'tokens/build/all-semantic-variables.css',
+  semantic: 'tokens/build/semantic-variables.css',
 }
 const OUTPUT_FILE = 'tokens/build/tailwind-variables.css' // Новый файл с директивой @theme
 
 /**
- * Извлекает категорию из CSS-комментария.
- * @param {string} line Строка, содержащая комментарий.
- * @returns {string | null} Категория в нижнем регистре или null, если не найдена.
+ * Карта для автоматического добавления единиц измерения (например, 'deg' для 'rotate').
+ * Ключ: часть имени переменной; Значение: единица измерения.
+ * Единица добавляется, только если значение является чистым числом.
  */
-function extractCategory(line) {
-  // Ищем комментарий вида /** category*/ или /* category */
-  const match = line.match(
-    /\/\*\*\s*([^ *\/]+)\s*\*\/|\/\*\s*([^ *\/]+)\s*\*\//
-  )
-  if (match) {
-    // match[1] для /** category*/, match[2] для /* category */. Берем первый найденный.
-    const category = match[1] || match[2]
-    // Приводим к нижнему регистру и удаляем пробелы
-    return category.trim().toLowerCase()
-  }
-  return null // Категория не найдена
+const UNIT_MAP = {
+  'rotate': 'deg',
+  // TODO: Добавьте сюда другие единицы, например, 'translate': 'rem'
 }
 
 /**
@@ -33,69 +27,72 @@ function fixCssVariables() {
   const allAliases = [] // Единый массив для всех псевдонимов
   let success = true
 
-  for (const [theme, filePath] of Object.entries(THEME_FILES_TO_READ)) {
+  for (const [, filePath] of Object.entries(THEME_FILES_TO_READ)) {
     try {
       const fullPath = path.resolve(filePath)
       const cssContent = fs.readFileSync(fullPath, 'utf8')
       const lines = cssContent.split('\n')
 
       for (const line of lines) {
-        // Ищем строки с определением CSS-переменной: --lightPrimary: #color; /** comment */
+        // Ищем строки с определением CSS-переменной: --var-name: value; /* optional comment */
+        // Регулярное выражение match[2] = имя переменной, match[3] = значение.
         const match = line.match(
           /^(\s*)(--[^:]+):\s*([^;]+);(\s*(\/\*.*\*\/))?/
         )
 
         if (match) {
-          const oldVarName = match[2] // Например, --xs-bp или --dark-color-primary
-          const value = match[3].trim() // Например, 360px (Value)
-          const comment = match[4] || '' // Например, /** breakpoint */
+          const oldVarName = match[2] // Например, --light-gap-4 или --xs-breakpoint
+          
+          // Изменяем 'const' на 'let', чтобы можно было изменить значение, добавив 'deg'.
+          let value = match[3].trim() 
 
-          // Извлекаем категорию из комментария
-          const category = extractCategory(comment)
+          // 1. Извлекаем имя переменной без префикса `--`
+          const fullVarName = oldVarName.substring(2) // 'light-rotate-90'
+          const parts = fullVarName.split('-')
+          
+          let finalName = fullVarName
+          let variantSuffix = '' // Суффикс для варианта (тема, брейкпоинт)
 
-          // 1. Убираем префикс -- и префикс темы (e.g. --variables-3xl-3xl -> 3xl-3xl)
-          let baseName = oldVarName
-            .substring(2) 
-            .replace(new RegExp(`^${theme}`, 'i'), '')
+          // 2. УНИВЕРСАЛЬНАЯ ЛОГИКА: Если имя переменной содержит дефис,
+          // первый сегмент считается префиксом (вариантом) и перемещается в суффикс.
+          if (parts.length > 1) {
+            // Первый сегмент - это префикс, который мы хотим переместить.
+            variantSuffix = parts[0].toLowerCase() 
+            
+            // Остальная часть имени
+            finalName = parts.slice(1).join('-') // 'rotate-90'
+          } else {
+            // Переменные без дефисов (например, --opacity50), оставляем как есть.
+            finalName = fullVarName
+          }
 
-          // 2. УДАЛЕНИЕ ПРЕФИКСА РАЗМЕРА ИЛИ ТЕМЫ/ВАРИАНТА:
-          if (category) {
-            // A. Если категория ИЗВЕСТНА (из комментария), удаляем ПЕРВЫЙ СЕГМЕНТ,
-            // который, вероятно, является префиксом размера/варианта.
-            if (baseName.includes('-')) {
-              const parts = baseName.split('-')
-              if (parts.length > 1) {
-                // Удаляем первый элемент массива (например, 'xs')
-                baseName = parts.slice(1).join('-') // baseName становится 'bp'
+          // 3. ЛОГИКА ЕДИНИЦ ИЗМЕРЕНИЯ (ОБНОВЛЕНО):
+          // Добавляем единицу измерения, если значение является чистым числом.
+          // Простая регулярка для проверки целых или десятичных чисел, включая отрицательные.
+          const isNumeric = /^-?\d+(\.\d+)?$/.test(value);
+
+          if (isNumeric) {
+            for (const [prefix, unit] of Object.entries(UNIT_MAP)) {
+              if (finalName.includes(prefix)) {
+                value += unit
+                break
               }
             }
-          } else {
-            // B. Если категория НЕИЗВЕСТНА (нет комментария):
-            
-            // 2. УНИВЕРСАЛЬНОЕ УДАЛЕНИЕ ПЕРВОГО СЕГМЕНТА (например, 'xs-', 'md-').
-            // Ищем любой текст в начале, за которым следует дефис, и удаляем его.
-            // Это заменяет длинное перечисление размеров.
-            const firstSegmentRegex = /^.+?-/i;
-            if (firstSegmentRegex.test(baseName) && baseName.split('-').length > 1) {
-                baseName = baseName.replace(firstSegmentRegex, '');
-            }
           }
-          
-          // 3. Расчет суффикса (если есть категория) или префикса (если нет).
-          // Если есть категория, она станет суффиксом, иначе - пустой строкой.
-          const suffix = category ? `-${category}` : ''; // Добавляем '-' в начале, если есть категория.
-          
-          // 4. Формируем новое имя: --[fixedName][suffix]
-          // Если category есть: --bp-breakpoint. Если category нет: --color-primary ИЛИ --bp
-          const newAliasName = `--${baseName}${suffix}` 
+          // ------------------------------------------
 
-          // 5. Создаем строку псевдонима
+          // 4. Формируем новое имя: --[finalName]-[variantSuffix] или --[finalName]
+          const newAliasName = variantSuffix
+            ? `--${finalName}-${variantSuffix}`
+            : `--${finalName}`
+
+          // 5. Создаем строку псевдонима с отступом
           const aliasLine = `  ${newAliasName}: ${value};`
 
           allAliases.push(aliasLine)
         }
       }
-      console.log(`✅ Успешно собраны псевдонимы для темы: ${theme}`)
+      console.log(`✅ Успешно собраны псевдонимы для файла: ${filePath}`)
     } catch (error) {
       if (error.code === 'ENOENT') {
         console.warn(`⚠️ Файл темы не найден, пропуск: ${filePath}`)
@@ -108,16 +105,19 @@ function fixCssVariables() {
 
   if (!success) return
 
-  // 5. Запись нового файла
+  // 6. Запись нового файла
   let outputContent =
     '/* Сгенерировано fix-variables.js для Tailwind v4 @theme */\n\n'
 
   outputContent += `@theme {\n`
-  outputContent += allAliases.join('\n')
+  // Используем Set для удаления дубликатов, затем сортируем и объединяем
+  const uniqueAndSortedAliases = [...new Set(allAliases)].sort()
+  outputContent += uniqueAndSortedAliases.join('\n')
   outputContent += `\n}\n`
 
   try {
     const outputFullPath = path.resolve(OUTPUT_FILE)
+    // Убедимся, что директория существует
     fs.mkdirSync(path.dirname(outputFullPath), { recursive: true })
 
     fs.writeFileSync(outputFullPath, outputContent, 'utf8')
