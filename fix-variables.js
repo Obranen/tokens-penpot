@@ -3,7 +3,7 @@ import path from 'path'
 
 const THEME_FILES_TO_READ = {
   // Файлы для чтения (используются для получения имен переменных)
-  variables: 'tokens/build/style-dictionary-variables.css',
+  semantic: 'tokens/build/all-semantic-variables.css',
 }
 const OUTPUT_FILE = 'tokens/build/tailwind-variables.css' // Новый файл с директивой @theme
 
