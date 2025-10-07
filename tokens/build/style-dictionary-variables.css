@@ -4,12 +4,12 @@
 
 :root {
   --light-color-primary: rgb(183, 0, 0); /** light */
-  --xs-bp: 360px;
-  --md-bp: 768px;
-  --3xl-bp: 1920px;
-  --2xl-bp: 1536px;
-  --lg-bp: 1024px;
-  --xl-bp: 1280px;
+  --xs-breakpoint: 360px; /** xs */
+  --md-breakpoint: 768px; /** md */
+  --3xl-breakpoint: 1920px; /** 3xl */
+  --2xl-breakpoint: 1536px; /** 2xl */
+  --lg-breakpoint: 1024px; /** lg */
+  --xl-breakpoint: 1280px; /** xl */
   --dark-color-primary: rgb(146, 0, 159); /** dark */
-  --sm-bp: 480px;
+  --sm-breakpoint: 480px; /** sm */
 }

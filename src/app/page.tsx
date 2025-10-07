@@ -2,7 +2,7 @@ export default function Home() {
   return (
     <main className="container center">
       <div className='text-center'>
-        <h1 className=''>
+        <h1 className='2xl:text-primary-light'>
           Hello Penpot Tokens
         </h1>
       </div>

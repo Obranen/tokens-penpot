@@ -2,12 +2,12 @@
 
 @theme {
   --color-primary-light: rgb(183, 0, 0);
-  --bp: 360px;
-  --bp: 768px;
-  --bp: 1920px;
-  --bp: 1536px;
-  --bp: 1024px;
-  --bp: 1280px;
+  --breakpoint-xs: 360px;
+  --breakpoint-md: 768px;
+  --breakpoint-3xl: 1920px;
+  --breakpoint-2xl: 1536px;
+  --breakpoint-lg: 1024px;
+  --breakpoint-xl: 1280px;
   --color-primary-dark: rgb(146, 0, 159);
-  --bp: 480px;
+  --breakpoint-sm: 480px;
 }
