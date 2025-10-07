@@ -1,4 +1,4 @@
-/* Сгенерировано fix-variables.js для Tailwind v4 @theme */
+/* Сгенерировано fix-variables.js для Tailwind v4 @theme и @utility */
 
 @theme {
   --border-2-light: 16px;
@@ -9,8 +9,10 @@
   --breakpoint-sm: 480px;
   --breakpoint-xl: 1280px;
   --breakpoint-xs: 360px;
+  --case-on-light: lowercase;
   --color-primary-dark: rgb(146, 0, 159);
   --color-primary-light: rgb(183, 0, 0);
+  --decoration-un-light: underline;
   --font-primary-light: Roboto;
   --font-weight-normal-light: 400;
   --gap-4-light: 16px;
@@ -20,6 +22,12 @@
   --rotate-90-light: 90deg;
   --text-base-light: 16px;
   --tracking-normal-light: 0;
-  --underline-offset-4-light: 4px;
-  --uppercase-light: lowercase;
+}
+
+@utility decoration-un-light {
+  text-decoration-line: var(--decoration-un-light);
+}
+
+@utility case-on-light {
+  text-transform: var(--case-on-light);
 }
