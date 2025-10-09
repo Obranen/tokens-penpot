@@ -1,33 +1,14 @@
 /* Сгенерировано fix-variables.js для Tailwind v4 @theme и @utility */
 
 @theme {
-  --border-2-light: 16px;
-  --breakpoint-2xl: 1536px;
-  --breakpoint-3xl: 1920px;
-  --breakpoint-lg: 1024px;
-  --breakpoint-md: 768px;
-  --breakpoint-sm: 480px;
-  --breakpoint-xl: 1280px;
-  --breakpoint-xs: 360px;
-  --case-on-light: lowercase;
-  --color-primary-dark: rgb(146, 0, 159);
-  --color-primary-light: rgb(183, 0, 0);
-  --decoration-un-light: underline;
-  --font-primary-light: Roboto;
-  --font-weight-normal-light: 400;
-  --gap-4-light: 16px;
-  --opacity-50-light: 0.5;
-  --radius-rounded-2xl-light: 16px;
-  --rotate-45-45-light: 45deg;
-  --rotate-90-light: 90deg;
-  --text-base-light: 16px;
-  --tracking-normal-light: 0;
+  --breakpoint-2xl: 96rem;
+  --breakpoint-3xl: 120rem;
+  --breakpoint-lg: 64rem;
+  --breakpoint-md: 48rem;
+  --breakpoint-sm: 30rem;
+  --breakpoint-xl: 80rem;
+  --breakpoint-xs: 22.5rem;
+  --color-primary-dark: rgb(168, 0, 0);
+  --color-primary-light: rgb(201, 210, 0);
 }
 
-@utility decoration-un-light {
-  text-decoration-line: var(--decoration-un-light);
-}
-
-@utility case-on-light {
-  text-transform: var(--case-on-light);
-}

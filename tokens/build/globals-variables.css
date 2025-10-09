@@ -3,32 +3,13 @@
  */
 
 :root {
-  --globals-bp-xs: 360px;
-  --globals-breakpoint-2xl: 1536px;
-  --globals-breakpoint-xl: 1280px;
-  --globals-breakpoint-lg: 1024px; /** breakpoint */
-  --globals-breakpoint-md: 768px; /** breakpoint */
-  --globals-breakpoint-sm: 480px; /** breakpoint */
-  --globals-breakpoint-xs: 360px;
-  --globals-rotate-90: 90;
-  --globals-purple-300: rgb(146, 0, 159);
-  --globals-text-base: 16px;
-  --globals-rounded-2xl: 16px;
-  --globals-bp-sm: 480px;
-  --globals-stroke: 16px;
-  --globals-tracking-normal: 0;
+  --globals-red-500: rgb(168, 0, 0);
+  --globals-yellow-500: rgb(201, 210, 0);
   --globals-bp-3xl: 1920px;
-  --globals-red-500: rgb(183, 0, 0);
-  --globals-bp-lg: 1024px;
-  --globals-opacity-50: 0.5;
-  --globals-number: 1.4;
-  --globals-text-decoration: underline;
-  --globals-bp-xl: 1280px;
-  --globals-gap-4: 16px;
-  --globals-font-roboto: Roboto;
-  --globals-font-normal: 400;
-  --globals-text-case: lowercase;
-  --globals-dimension: 16px;
   --globals-bp-2xl: 1536px;
+  --globals-bp-xl: 1280px;
+  --globals-bp-lg: 1024px;
   --globals-bp-md: 768px;
+  --globals-bp-sm: 480px;
+  --globals-bp-xs: 360px;
 }

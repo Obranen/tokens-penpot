@@ -3,25 +3,13 @@
  */
 
 :root {
-  --light-gap-4: 16px;
-  --light-border-2: 16px;
-  --light-radius-rounded-2xl: 16px;
-  --light-tracking-normal: 0;
-  --light-decoration-un: underline;
-  --light-text-base: 16px;
-  --light-font-primary: Roboto;
-  --light-font-weight-normal: 400;
-  --light-case-on: lowercase;
-  --light-rotate-90: 90;
-  --light-rotate-45-45: 45;
-  --light-color-primary: rgb(183, 0, 0);
-  --light-opacity-50: 0.5;
-  --xs-breakpoint: 360px; /** xs */
-  --md-breakpoint: 768px; /** md */
   --3xl-breakpoint: 1920px;
+  --sm-breakpoint: 480px;
+  --xl-breakpoint: 1280px;
+  --lg-breakpoint: 1024px;
+  --light-color-primary: rgb(201, 210, 0);
+  --xs-breakpoint: 360px;
+  --dark-color-primary: rgb(168, 0, 0);
+  --md-breakpoint: 768px;
   --2xl-breakpoint: 1536px;
-  --lg-breakpoint: 1024px; /** lg */
-  --xl-breakpoint: 1280px; /** xl */
-  --dark-color-primary: rgb(146, 0, 159); /** dark */
-  --sm-breakpoint: 480px; /** sm */
 }
